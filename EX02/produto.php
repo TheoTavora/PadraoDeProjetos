@@ -2,12 +2,13 @@
 include_once("db.php");
 
 class ProdutoManager {
+    // Chamada da instancia de conexao.
     private $db;
-
     public function __construct() {
         $this->db = Database::getInstance()->getConnection();
     }
-
+    // Função que recebe o id do PRODUTO e cria uma condição para validar sua existência, se for True, retornará o valor da -
+    // variavel (&produtodata).
     public function getProdutoById($produtoId) {
         $query = $this->db->prepare("SELECT * FROM produtos WHERE id = :id");
         $query->bindParam(":id", $produtoId);
@@ -24,7 +25,7 @@ class ProdutoManager {
 
 $produtoManager = new ProdutoManager();
 $produtoData = $produtoManager->getProdutoById(1);
-
+// Se tudo for True, então os valores são validados no BD, com suas credenciais:
 if ($produtoData !== false) {
     $produtoId = $produtoData['id'];
     $produtoNome = $produtoData['produtoNome'];
@@ -43,7 +44,6 @@ if ($produtoData !== false) {
 </head>
 <body>
 
-
 <div class="container">
 <table class="table">
   <thead>
@@ -57,7 +57,7 @@ if ($produtoData !== false) {
   <tbody>
     <tr>
       <td><?= $produtoId ?></td>
-      <td><?= $produtoNome ?></td>
+      <td><?= $produtoNome ?></td>          
       <td><?= $produtoDescricao ?></td>
       <td><?= $produtoPreco ?></td>
     </tr>
